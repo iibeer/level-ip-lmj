@@ -65,7 +65,7 @@ int netdev_transmit(struct sk_buff *skb, uint8_t *dmac, uint16_t ethertype) {
 }
 
 static void netdev_recieve(struct sk_buff *skb) {
-    struct eth_hdr *hdr;
+    struct eth_hdr *hdr = eth_hdr(skb);
     hdr = (struct eth_hdr *)skb->data;
     eth_dbg("in", hdr);
 

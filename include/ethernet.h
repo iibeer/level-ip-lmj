@@ -2,6 +2,7 @@
 #define ETHERNET_H
 
 #include "syshead.h"
+#include "skbuff.h"
 
 #define ETH_HDR_LEN 14
 #define MAC_ADDR_LEN  6
@@ -27,5 +28,12 @@ struct eth_hdr {
     uint16_t ethertype;
     uint8_t payload[];
 }__attribute__((packed));
+
+static inline struct eth_hdr *eth_hdr(struct sk_buff *skb) {
+    struct eth_hdr *hdr = (struct eth_hdr *)skb_head(skb);
+    hdr->ethertype = ntohs(hdr->ethertype);
+
+    return hdr;
+}
 
 #endif
